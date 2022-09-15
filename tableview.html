@@ -1,0 +1,73 @@
+<html ng-app="testApp">
+  <head>
+    <title>AngularJS $Http service tutorial example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<style> table.people {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table.people td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  table.people tr:nth-child(even){
+    background-color: #f2f2f2;
+  }
+
+  table.people tr:hover {
+    background-color: #ddd;
+  }
+
+  table.people th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #35b7df;
+    color: white;
+  }</style> 
+</head>
+  <body ng-controller="testController">
+    <h2></h2>
+
+    <button ng-click="getRequest()">get data</button>
+   <a href ='http://localhost:8080/delete'><button>delete data</button></a>
+    <table class="people" cellspacing="2" border="1px">
+        <tr>
+          <th>Name</th>
+          <th>Mail</th>
+          <th>mobile</th>
+          <th>password</th>
+          <th>Action</th>
+        </tr>
+        <tr ng-repeat="a in lists ">
+            <td>{{a.name}}</td>
+            <td>{{a.mail}}</td>
+            <td>{{a.mobile}}</td>
+            <td>{{a.password}}</td>
+           
+          </tr>
+      </table>
+
+    <script >var testApp = angular.module("testApp", [])
+        testApp.controller("testController", function($scope, $http) {
+          
+          
+          
+          $scope.getRequest = function() {
+            console.log("data fetched");
+            $http.get("http:localhost:8080/list").then(
+              function successCallback(response) {
+                $scope.lists = response.data;
+              },
+              function errorCallback(response) {
+                console.log("error");
+              }
+            );
+          };
+        });
+        </script>
+  </body>
+</html>

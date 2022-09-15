@@ -1,0 +1,190 @@
+
+<html lang="en" ng-app="formvalidation">
+    <head>
+      
+    <meta charset="utf-8">
+    <title>AngularJS Form Validation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <style type="text/css">
+    .errortext{
+    color:red;
+    } 
+body {
+color: #fff;
+background: white;
+font-family: 'Roboto', sans-serif;
+}
+.form-control{
+height: 30px;
+box-shadow: none;
+color: black;
+}
+.form-control:focus{
+border-color: lightgreen;
+}
+.form-control, .btn{
+border-radius: 3px;
+}
+.signup-form{
+width: 400px;
+margin: 0 auto;
+padding: 30px 0;
+}
+.signup-form h2{
+color: black;
+margin: 0 0 15px;
+position: relative;
+text-align: center;
+}
+.signup-form h2:before, .signup-form h2:after{
+content: "";
+height: 2px;
+width: 30%;
+background: #d4d4d4;
+position: absolute;
+top: 50%;
+z-index: 2;
+}
+.signup-form h2:before{
+left: 0;
+}
+.signup-form h2:after{
+right: 0;
+}
+.signup-form .hint-text{
+color:  black;
+margin-bottom: 30px;
+text-align: center;
+}
+.signup-form form{
+color: rgba(211, 211, 211, 0);
+border-radius: 3px;
+margin-bottom: 15px;
+background: rgba(24, 173, 179, 0.527);
+box-shadow: 0px 2px 2px;
+padding: 30px;
+}
+.signup-form .form-group{
+margin-bottom: 28px;
+}
+.signup-form input[type="checkbox"]{
+margin-top: 3px;
+}
+.signup-form .btn{
+font-size: 16px;
+font-weight: bold;
+min-width: 140px;
+outline: none !important;
+}
+
+
+
+table.people {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table.people td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    table.people tr:nth-child(even){
+      background-color: #f2f2f2;
+    }
+
+    table.people tr:hover {
+      background-color: #ddd;
+    }
+
+    table.people th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    </style>
+
+    </head>
+    <body ng-controller="rform"  ng-app="formvalidation">
+    <h1 class="page-header text-center">AngularJS Form Validation</h1>
+    <div class="signup-form">
+    <form id="register" action="/myform" ng-submit="myform.$valid && upload(user)" name="myform" method="POST"novalidate>
+    <h2>Register</h2>
+    
+    <div class="form-group">
+    <input type="text" class="form-control" name="f_name" placeholder="f_name" ng-minlength="3" ng-maxlength="30" ng-pattern="/^[a-zA-Z0-9_]*$/" ng-model="user.f_name" required autofocus>
+    <div class="errortext" ng-show="myform.f_name.$dirty && myform.f_name.$invalid">
+    <span ng-show="myform.f_name.$error.required">f_name is required</span>
+    <span ng-show="myform.f_name.$error.minlength">min 3letter</span>
+    <span ng-show="myform.f_name.$error.maxlength">f_name is longer</span>
+    </div>
+    <div class="row">
+    <div class="form-group">
+    
+    </div>
+    </div>
+    <div class="form-group">
+    <input type="email" class="form-control" name="mail" placeholder="mail" ng-model="user.mail" ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' required >
+    <div class="errortext" ng-show="myform.mail.$dirty && myform.mail.$invalid">
+        <span ng-show="myform.mail.$error.required">must filled</span>
+        <span ng-show="myform.mail.$error.email">enter valid mail</span>
+        <span ng-show="myform.mail.$error.pattern">notvalid</span>
+    </div>
+    </div>
+    <div class="form-group">
+    <input type="number" class="form-control" name="phone" placeholder="phoneno"ng-minlength="10" ng-model="user.phone" required>
+    <div class="errortext" ng-show="myform.phone.$dirty && myform.phone.$invalid">
+        <span ng-show="myform.phone.$error.required">phno is required</span>
+        <span ng-show="myform.phone.$error.minlength">enter valid phone number</span>
+        <span ng-show="myform.phone.$error.number">only contain number</span>
+    </div>
+    </div>
+    <div class="form-group">
+    <input type="password" class="form-control" name="password" placeholder="Password" ng-model="user.password" required>
+   <div class="errortext" ng-show="myform.password.$dirty && myform.password.$invalid">
+    <span ng-show ="myform.password.$error.required">enter your password</span>
+   </div>
+    </div>
+    <div class="form-group">
+    <input type="password" class="form-control" name="repassword" placeholder="Re-type Password" ng-model="user.repassword" required>
+    <div class="errortext" ng-show="myform.repassword.$dirty && myform.repassword.$invalid">
+        <span ng-show ="myform.repassword.$error.required">re-enter your password</span>
+        <span ng-show="!myform.repassword.$error.required && user.repassword != user.password">password not matching</span>
+    </div>
+    <br>
+    <div class="form-group">
+    <button type="submit"  id="submit" value="submit" name="submit"  class="btn btn-primary btn-lg btn-block" ng-disabled="myform.$invalid || user.repassword != user.password" ng-click="get()"><span></span> Register Now</button>
+    </div>
+  
+   
+    </div>
+    </form><br><br>
+   
+    <script>
+    
+    var app = angular.module('formvalidation', []);
+    app.controller('rform', function($scope,$http) {
+
+      $scope.upload = function() {
+        $http.post("/", $scope.user).then(
+      function successCallback(response) {
+        console.log("data posted");
+      },
+      function errorCallback(response) {
+        console.log("error");
+      });
+        
+      }
+    });
+    
+    </script>
+
+    </body>
+    </html>
